@@ -2,6 +2,8 @@
 package control;
 
 import static control.Conexao.rs;
+import java.awt.List;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,7 +81,7 @@ public class ControleCadastro {
     }
 
     public model Pesquisa(model mod) {
-              conexao.executaSql("SELECT * from funcionarios where  nome like '%" + mod.getPesquisa() + "%' ");
+              conexao.executaSql("SELECT * FROM funcionarios WHERE UPPER (NOME) like '%" + mod.getPesquisa() + "%' ");
                try {
                   conexao.rs.next();
                 mod.setId(conexao.rs.getInt("id"));
@@ -91,9 +93,32 @@ public class ControleCadastro {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "ERRO!!");
                 
-}   
-   //     conexao.desconecta();
+}   finally {
+    conexao.desconecta();
+    }
+        
         return mod;
 
+    }
+
+    public boolean checkLogin(String login, String senha) {
+        boolean check = false;
+        conexao.executaSql("SELECT * FROM usuario WHERE UPPER (login) like '%" + mod.getPesquisa() + "%' ");
+        try {
+            conexao.rs.next();
+            mod.setLogin(conexao.rs.getString("login"));
+            mod.setSenha(conexao.rs.getString("senha"));
+            if (rs.next()) {
+                check = true;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Login ou Senha invalidos!!");
+
+        } finally {
+            conexao.desconecta();
+        }  
+    
+        return check;
+    
     }
 }

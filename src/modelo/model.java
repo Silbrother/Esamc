@@ -3,6 +3,34 @@ package modelo;
 public class model {
 
     /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @return the senha
+     */
+    public String getSenha() {
+        return senha;
+    }
+
+    /**
+     * @param senha the senha to set
+     */
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    /**
      * @return the id
      */
     public int getId() {
@@ -91,4 +119,6 @@ public class model {
     private String email;
     private String pesquisa; 
     private byte[] foto;
+    private String login;
+    private String senha;
 }
